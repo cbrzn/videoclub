@@ -37,29 +37,27 @@
         <div class="container">
             <div class="box">
                 <div class="row">
-                    <div class="col-md-6"><img src="imagen2.jpg" alt="" /></div>
+                    <div class="col-md-6" id="poster"></div>
                     <div class="col-md-6">
-                <form id="product-form">
+                <div id="product-form">
                     <div class="form-group">
                         <label for="nameForm">Nombre</label>
-                        <input type="text" readonly class="form-control-plaintext" id="nameForm" placeholder="name@example.com" />
+                        <input type="text" readonly class="form-control-plaintext" id="name" />
                     </div>
                     <div class="form-group">
                         <label for="priceForm">Precio</label>
-                        <input type="text" readonly class="form-control-plaintext" id="priceForm" placeholder="Contrasena" />
+                        <input type="text" readonly class="form-control-plaintext" id="price" />
                     </div>
                     <div class="form-group">
                             <label for="descForm">Descripcion</label>
-                            <input type="text" readonly class="form-control-plaintext" id="descForm" placeholder="Contrasena" />
+                            <input type="text" readonly class="form-control-plaintext" id="description" />
                         </div>
-                    <div class="form-group row">
-                            <label for="quantity" class="col-sm-2 col-form-label">Cantidad</label>
-                            <div class="col-sm-10">
-                                <input type="number" class="form-control" id="quantity" value="1">
-                            </div>
+                        <div class="form-group">
+                                <label for="genreForm">Genero</label>
+                                <input type="text" readonly class="form-control-plaintext" id="genre" />
                         </div>
-                    <button type="submit" class="btn btn-primary btn-block">Add to Cart</button>
-                </form>
+                    <button type="submit" class="btn btn-primary btn-block" id="add">Add to Cart</button>
+                    </div>
             </div>
         </div>
         </div>>
@@ -67,6 +65,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/Movies/details.js"></script>
+    <script type="text/javascript" src="js/Cart/create.js"></script>
 </body>
 </html>
