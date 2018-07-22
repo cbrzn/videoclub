@@ -2,18 +2,13 @@ element = id => {
     return document.getElementById(id)
 }
 
-const createCart = () => {    
-    const actual_url = window.location.href
-    const url = new URL(actual_url)
-    const id = url.searchParams.get('id')
-
-    fetch('/cart/new', {
+const requestOrder = () => {
+    fetch('/cart/order', {
         method: 'POST',
         headers: {
             'Content-Type':'application/json'
         },
         credentials: 'include',
-        body: JSON.stringify( { id } )
     })
     .then(response => response.json())
     .then(result => {
@@ -21,4 +16,4 @@ const createCart = () => {
     })
 }
 
-element('add').addEventListener('click', createCart)
+element('order').addEventListener('click', requestOrder)

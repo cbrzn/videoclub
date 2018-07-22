@@ -36,17 +36,63 @@ router.get('/delete/:id', (req, res) => {
     });
 });
 
-router.post('/order', (req, res) => {
+router.post('/order', async (req, res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-               user: 'softwarevideoclub@gmail.com',
-               pass: 'Software2'
-           }
-       })
-    
-    const link = `http://${+req.get(host)}/new/`
-    const text = `<h1>${req.user.name}</h1>`
+            user: 'softwarevideoclub@gmail.com',
+            pass: 'Software2'
+        }
+    })
+
+    const items = await cart.show(req.user.person_id)
+    let text = `<h1>${req.user.name}</h1><ul>`
+    let prices = []
+
+    for (var i in items) {
+        const { name, genre, price } = items[i]
+        prices.push(price)
+        text += "<li><p>Pelicula: " + name + "</p><p>Precio: " + price + "</p><p>Genero: " + genre + "</li>"
+        console.log(prices)
+    }
+
+    getSum = (total, num) => {
+        return total + num
+    }
+
+    const total = prices.reduce(getSum)    
+    const d = new Date()
+    const date = `${d.getDate()}-${(d.getMonth()+1)}-${d.getFullYear()}` 
+
+    const link = `http://${req.get('host')}/bill/new/${req.user.person_id}/${total}/${date}`
+
+    text += "<p> Total: "+ total +"</p>Se ha realizado una nueva reserva,<br> A continuacion haga click en el siguiente enlace para crear una orden.<br><a href="+link+">Nueva orden</a></ul>"
+
+
+    // setup e-mail data with unicode symbols
+    const mailOptions = {
+    // sender address
+        from: '<softwareApp@gmail.com>',
+    // list of receivers
+        to: 'cesarbrazon10@gmail.com',
+    // Subject line
+        subject: 'Nueva reserva',
+        html: text,
+    }
+
+    transporter.sendMail(mailOptions, async (error, info) => {
+        if(error){
+            console.log(error)
+            res.send({ status: 400 })
+        } else {
+            try {
+                res.send({ status: 200 })
+                const ordered = await cart.order(req.user.person_id)
+            } catch (e) {
+                res.send({ status: 500 })
+            }
+        }
+  });
 
 })
 

@@ -17,3 +17,21 @@ module.exports.new = (person_id, total, date)=>{
         })
     })
 }
+
+module.exports.all = ()=>{
+    return new Promise((res,rej)=>{
+        db.connect().then(obj => {
+            obj.any('select * from bill', []).then(data => {
+                res(data)
+                obj.done()
+            }).catch(error => {
+                console.log(error)
+                rej(error)
+                obj.done()
+            })
+        }).catch(error => {
+            console.log(error)
+            rej(error)
+        })
+    })
+}
