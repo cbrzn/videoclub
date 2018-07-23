@@ -17,13 +17,37 @@ router.get('/new/:person_id/:total/:date', (req, res) => {
 })
 
 router.get('/all', async (req, res) => {
-    const bills = await bill.all()
-    res.send({ bills })
+    if (req.user != undefined) {
+        const bills = await bill.all()
+        res.send({ bills })
+
+    }
 })
 
 router.post('/show', async (req, res) => {
-    const bill = await bill.show(req.body.id)
-    res.send({ bill })
+    /*
+    if (req.user != undefined) {
+        if (req.user.admin == true)
+    } 
+    */
+    const s = await bill.show(req.body.id)
+    res.send({ 
+        status:200,
+        bill:s 
+    })
+})
+
+router.post('/update', async (req, res) => {
+    try {
+        const update = await bill.update(req.body.id)
+        res.send({ 
+            status: 200
+        })       
+    } catch (e) {
+        re.send({ 
+            status: 500
+        })
+    }
 })
 
 module.exports = router;

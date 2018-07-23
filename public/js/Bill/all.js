@@ -1,14 +1,14 @@
-element = id => { 
-    return document.getElementById(id)
-}
+element = id => document.getElementById(id)
 
 const showBilled = () => {
-    fetch('./bill/all')
+    fetch('./bill/all', {
+        credentials: 'include'
+    })
     .then(response => response.json())
     .then(result => {
         const tbody = element('table')
         for (var i in result.bills) {
-            const { person_id, total, date, status } = result.bills[i]
+            const { person_id, total, date, status, bill_id } = result.bills[i]
             const tr = document.createElement('tr')
             const bill = document.createElement('th')
             const amount = document.createElement('td')
@@ -16,10 +16,13 @@ const showBilled = () => {
             const stat = document.createElement('td')
             const details = document.createElement('td')
             
+            const billing_date = date.substring(0, date.indexOf('T'))
+            const just_date = billing_date.split('-').reverse().join('-')
+
             bill.innerHTML = person_id
             bill.setAttribute('scope', 'row')
             amount.innerHTML = total
-            payday.innerHTML = date
+            payday.innerHTML = just_date
             stat.innerHTML = status
             details.innerHTML = 'Ver'
 
@@ -28,6 +31,10 @@ const showBilled = () => {
             tr.appendChild(payday)
             tr.appendChild(stat)
             tr.appendChild(details)
+
+            details.addEventListener('click', () => {
+                window.location.href = `/order-detail.html?id=${bill_id}`
+            })
 
             tbody.appendChild(tr)
         }

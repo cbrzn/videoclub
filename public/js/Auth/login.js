@@ -20,7 +20,10 @@ const login = () => {
     })
     .then(response => response.json())
     .then(result => {
-        console.log(result)
+        if (result.status == 200) {
+            alert('Has iniciado sesion')
+            window.location.href = '/'
+        }
     }).catch(err => {
         console.log(err)
     })

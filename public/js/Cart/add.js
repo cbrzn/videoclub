@@ -1,6 +1,4 @@
-element = id => { 
-    return document.getElementById(id)
-}
+element = id => document.getElementById(id)
 
 const addToCart = () => {    
     const actual_url = window.location.href

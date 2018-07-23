@@ -39,13 +39,17 @@ router.post('/signup', auth.isLogged, (req, res, next) => {
 })
 
 router.get('/value', auth.isAuth, (req,res) => {
-    res.send({session:req.session.passport, id:req.user.id})
+    res.send({
+        status: 200,
+        session:req.session.passport, 
+        id:req.user.id
+    })
 })
 
 router.get('/logout', auth.isAuth, (req, res) => {
     req.logout()
-    res.status(200).send({
-        status: 'Bye!'
+    res.send({
+        status: 200
     })
 })
 
