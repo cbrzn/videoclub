@@ -16,7 +16,7 @@ const header = () => {
             /* if (result.session.user.admin) {
                     element('horder').style.display = "block"
                     element('hupload').style.display = "block"
-                }*/
+                } */
             break
             case 400:
                 element('hlogin').style.display = "block"
