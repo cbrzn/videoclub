@@ -71,3 +71,21 @@ module.exports.update = (id)=>{
         })
     })
 }
+
+module.exports.by_user = (id)=>{
+    return new Promise((res,rej)=>{
+        db.connect().then(obj => {
+            obj.any('select * from bill where person_id = $1', [id]).then(data => {
+                res(data)
+                obj.done()
+            }).catch(error => {
+                console.log(error)
+                rej(error)
+                obj.done()
+            })
+        }).catch(error => {
+            console.log(error)
+            rej(error)
+        })
+    })
+}

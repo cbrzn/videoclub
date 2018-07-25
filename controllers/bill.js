@@ -50,4 +50,20 @@ router.post('/update', async (req, res) => {
     }
 })
 
+
+router.get('/by_user', async (req, res) => {
+    try {
+        const bills = await bill.by_user(req.user.person_id)
+        res.send({ 
+            status: 200,
+            user:req.user, 
+            bills
+        })       
+    } catch (e) {
+        res.send({ 
+            status: 500
+        })
+    }
+})
+
 module.exports = router;

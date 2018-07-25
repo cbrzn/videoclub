@@ -11,6 +11,7 @@ const header = () => {
             case 200:
                 element('hhome').style.display = "block"
                 element('hcart').style.display = "block"
+                element('haccount').style.display = "block"
                 element('logout').style.display = "block"
                 element('logout').addEventListener('click', logOut)
             /* if (result.session.user.admin) {
