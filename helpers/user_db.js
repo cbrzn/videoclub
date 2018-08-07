@@ -46,3 +46,55 @@ module.exports.new = (name, email, password, location)=>{
         });
     });
 }
+
+module.exports.by_password_token = (token) => {
+    return new Promise((res, rej) => {
+        db.connect().then((obj) => {
+            obj.one('SELECT * FROM person where reset_password_token = $1', [token])
+                .then(data => {
+                    res(data);
+                    obj.done();
+                }).catch(error => {
+                    rej(error);
+                    obj.done();
+                });
+        }).catch(error => {
+            rej(error);
+        });
+    });
+}
+
+module.exports.update_password_token = (token, time, id) => {
+    return new Promise((res, rej) => {
+        db.connect().then((obj) => {
+            obj.none('update person set reset_password_token = $1, reset_password_expires = $2 where person_id = $3', 
+              [token, time, id]).then((test) => {
+                res(test);
+                obj.done();
+            }).catch(error => {
+                rej(error);
+                obj.done();
+            });
+        }).catch(error => {
+            rej(error);
+        });
+    })
+}
+
+
+module.exports.reset_password = (token, time, password, id) => {
+    return new Promise((res, rej) => {
+        db.connect().then((obj) => {
+            obj.none('update person set reset_password_token = $1, reset_password_expires = $2, password = $3 where person_id = $4', 
+              [token, time, password, id]).then((test) => {
+                res(test);
+                obj.done();
+            }).catch(error => {
+                rej(error);
+                obj.done();
+            });
+        }).catch(error => {
+            rej(error);
+        });
+    });
+}

@@ -10,7 +10,9 @@ const requestOrder = () => {
     })
     .then(response => response.json())
     .then(result => {
-        console.log(result)
+        if (result.status == 200) {
+            alert('Orden pedida y pendiente para ser retirada')
+        }
     })
 }
 

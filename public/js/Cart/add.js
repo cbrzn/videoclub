@@ -15,7 +15,12 @@ const addToCart = () => {
     })
     .then(response => response.json())
     .then(result => {
-        console.log(result)
+        if (result.status == 200) {
+            alert('Has anadido una pelicula al carro de compras')
+            window.location.href = '/index.html'
+        } else {
+            alert('There was a mistake')
+        }
     })
 }
 

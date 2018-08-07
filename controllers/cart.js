@@ -63,7 +63,6 @@ router.post('/order', async (req, res) => {
     const total = prices.reduce(getSum)    
     const d = new Date()
     const date = `${d.getDate()}-${(d.getMonth()+1)}-${d.getFullYear()}` 
-
     const link = `http://${req.get('host')}/bill/new/${req.user.person_id}/${total}/${date}`
 
     text += "<p> Total: "+ total +"</p>Se ha realizado una nueva reserva,<br> A continuacion haga click en el siguiente enlace para crear una orden.<br><a href="+link+">Nueva orden</a></ul>"
@@ -86,8 +85,8 @@ router.post('/order', async (req, res) => {
             res.send({ status: 400 })
         } else {
             try {
-                res.send({ status: 200 })
                 const ordered = await cart.order(req.user.person_id)
+                res.send({ status: 200 })
             } catch (e) {
                 res.send({ status: 500 })
             }

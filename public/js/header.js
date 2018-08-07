@@ -14,10 +14,10 @@ const header = () => {
                 element('haccount').style.display = "block"
                 element('logout').style.display = "block"
                 element('logout').addEventListener('click', logOut)
-            /* if (result.session.user.admin) {
-                    element('horder').style.display = "block"
+                if (result.session.user.admin) {
+                    element('horders').style.display = "block"
                     element('hupload').style.display = "block"
-                } */
+                } 
             break
             case 400:
                 element('hlogin').style.display = "block"

@@ -36,8 +36,13 @@ router.get('/:id', (req,res) => {
     })
 })
 
+router.get('/genres/all', async (req,res) => {
+    const genres =  await movie.genres()
+    res.send({ genres })
+})
+
 router.get('/delete/:id', (req, res) => {
-    movie.delete_movie(req.params.id).then((data)=>{
+    movie.delete_movie(req.params.id).then(data => {
         res.send({msg:data})
         }).catch((err)=> {
         throw err
@@ -46,20 +51,29 @@ router.get('/delete/:id', (req, res) => {
 
 router.post('/update/:id', (req, res)=> {
     const { name, price } = req.body
-    movie.update_movie(name, price, req.params.id).then((data)=> {
+    movie.update_movie(name, price, req.params.id).then(data => {
         res.send({msg:data})
     }).catch((err)=> {
         throw err
     })
 })
 
-router.post('genre', (req, res) => {
-
+router.get('/by_genre/:genre', async (req, res) => {
+    try {
+        const movies = await movie.by_genre(req.params.genre)
+        res.send({ movies })
+    } catch (e) {
+        res.send({ 
+            status: 500
+        })
+    }  
 })
+
 
 router.post('/new', upload.single('file'), (req,res) => {
     const { name, price, description, genre } = req.body
-    movie.new(name, `./images/${req.file.originalname}`, price, description, genre).then(success => {
+    console.log(genre)
+    movie.new(name, `./images/${req.file.originalname}`, price, description, genre.split(", ")).then(success => {
         res.send({ 
             status: 200
         })

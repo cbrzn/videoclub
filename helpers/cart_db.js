@@ -53,3 +53,21 @@ module.exports.delete_product_from_cart = (user_id, product_id)=>{
         })
     })
 }
+
+module.exports.order = (user_id)=>{
+    return new Promise((res,rej)=>{
+        db.connect().then(obj => {
+          obj.any('update cart set ordered = true where person_id = $1',[user_id]).then(data => { 
+                res(data)
+                obj.done()
+            }).catch(error => {
+                console.log(error)
+                rej(error)
+                obj.done()
+            })
+        }).catch(error => {
+            console.log(error)
+            rej(error)
+        })
+    })
+}

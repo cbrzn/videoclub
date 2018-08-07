@@ -43,6 +43,12 @@
                         <a class="nav-link" style="display:none" href="myaccount.html" id="haccount">Mi cuenta</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" style="display:none" href="upload.html" id="hupload">Nueva pelicula</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="display:none" href="orders.html" id="horders">Ordenes</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" style="display:none" id="logout">Cerrar sesion</a>
                     </li>
                 </ul>
@@ -53,20 +59,17 @@
         <div class="container">
             <div class="box" id="box">
                 <h3 class="title" id="prod">Collection</h3>
-                <form id="collection-form" class="form-inline">
+                <div id="collection-form" class="form-inline">
                     <div class="col-auto my-1 ml-auto">
                         <label class="sr-only" for="genreCollectionForm">Genero</label>
                         <select class="custom-select mr-sm-2" id="genreCollectionForm">
-                            <option selected>Genre</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option selected value='all'>Todos</option>
                         </select>
                     </div>
                     <div class="col-auto my-1 mr-auto">
-                        <button type="submit" class="btn btn-outline-primary my-1">Buscar</button>
+                        <button id="search" class="btn btn-outline-primary">Buscar</button>
                     </div>
-                </form>
+                </div>
                 <div id="grid" class="row collection">
                 </div>
             </div>

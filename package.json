@@ -4,7 +4,9 @@
   "description": "genyination",
   "main": "app.js",
   "dependencies": {
+    "async": "^2.6.1",
     "bcryptjs": "^2.4.3",
+    "crypto": "^1.0.1",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "morgan": "^1.9.0",

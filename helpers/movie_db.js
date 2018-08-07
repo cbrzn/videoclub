@@ -89,3 +89,41 @@ module.exports.update_movie = (name, price, id ) =>{
         })
     })
 }
+
+module.exports.by_genre = (genre) =>{
+    console.log(genre)
+    return new Promise((res,rej)=>{
+        db.connect().then((obj)=>{
+          obj.any('select * from movie where genre @> ARRAY[$1]::varchar[]',[genre]).then((data)=>{
+                res(data)
+                obj.done()
+            }).catch((error)=>{
+                console.log(error)
+                rej(error)
+                obj.done()
+            })
+        }).catch((error)=>{
+            console.log(error)
+            rej(error)
+        })
+    })
+}
+
+
+module.exports.genres = () =>{
+    return new Promise((res,rej)=>{
+        db.connect().then((obj)=>{
+          obj.any('select distinct unnest(genre) as genre from movie').then((data)=>{
+                res(data)
+                obj.done()
+            }).catch((error)=>{
+                console.log(error)
+                rej(error)
+                obj.done()
+            })
+        }).catch((error)=>{
+            console.log(error)
+            rej(error)
+        })
+    })
+}
